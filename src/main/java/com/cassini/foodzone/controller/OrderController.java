@@ -39,7 +39,7 @@ public class OrderController {
 
 	@PostMapping("/get")
 	 public ResponseEntity<List<CustomerOrder>> getOrders(@RequestBody GetOrderRequestDto getOrderRequestDto) {
-	        return ResponseEntity.ok().body(customerOrderService.getOrdersByCustomerId(getOrderRequestDto));
+	        return ResponseEntity.ok().body(customerOrderService.getOrders(getOrderRequestDto));
     }
 	
 	@PostMapping
