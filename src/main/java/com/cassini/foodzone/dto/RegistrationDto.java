@@ -1,8 +1,15 @@
 package com.cassini.foodzone.dto;
 
-public class RegistrationDto {
-	
-	
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
+public class RegistrationDto {
+
+	private String customerName;
+	private String password;
+	private String email;
+	private Long phoneNumber;
 
 }

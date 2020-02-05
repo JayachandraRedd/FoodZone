@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@SequenceGenerator(name = "vendorId", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "vendorId", initialValue = 100, allocationSize = 1)
 public class Vendor {
 
 	@Id
