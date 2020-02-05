@@ -3,6 +3,7 @@ package com.cassini.foodzone.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,10 +42,12 @@ public class OrderController {
 	 public ResponseEntity<List<CustomerOrder>> getOrders(@RequestBody GetOrderRequestDto getOrderRequestDto) {
 	        return ResponseEntity.ok().body(customerOrderService.getOrders(getOrderRequestDto));
     }
-	
 	@PostMapping
 	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
-        return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
+		OrderResponseDto orderResponseDto = customerOrderService.placeOrder(orderRequestDto);
+		orderResponseDto.setStatusCode(HttpStatus.ACCEPTED.value());
+		orderResponseDto.setMessage("order placed successfully");
+        return ResponseEntity.ok().body(orderResponseDto);
 	}
 
 
