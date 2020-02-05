@@ -1,19 +1,16 @@
 package com.cassini.foodzone.service;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.cassini.foodzone.dto.LoginRequestDto;
 import com.cassini.foodzone.dto.LoginResponseDto;
 import com.cassini.foodzone.dto.RegistrationDto;
 import com.cassini.foodzone.dto.ResponseDto;
-import com.cassini.foodzone.entity.Customer;
 import com.cassini.foodzone.entity.Customer;
 import com.cassini.foodzone.exception.NotFoundException;
 import com.cassini.foodzone.repository.CustomerRepository;
@@ -56,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
 			LoginResponseDto loginResponseDto = new LoginResponseDto();
 			BeanUtils.copyProperties(customer.get(), loginResponseDto);
 			loginResponseDto.setId(customer.get().getCustomerId());
+			loginResponseDto.setName(customer.get().getCustomerName());
 			log.info("CustomerServiceImpl authenticateCustomer ---> customer signed in");
 			return loginResponseDto;
 		} else {
