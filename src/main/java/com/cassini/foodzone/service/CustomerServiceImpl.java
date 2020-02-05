@@ -53,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
 			LoginResponseDto loginResponseDto = new LoginResponseDto();
 			BeanUtils.copyProperties(customer.get(), loginResponseDto);
 			loginResponseDto.setId(customer.get().getCustomerId());
+			loginResponseDto.setName(customer.get().getCustomerName());
 			log.info("CustomerServiceImpl authenticateCustomer ---> customer signed in");
 			return loginResponseDto;
 		} else {

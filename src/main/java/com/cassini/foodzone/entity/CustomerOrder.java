@@ -29,6 +29,9 @@ public class CustomerOrder {
 	@ManyToOne
 	private Customer customer;
 	
+	@ManyToOne
+	private Vendor vendor;
+	
 	@OneToMany
 	private List<Recipe> recipes;
 	

@@ -1,18 +1,16 @@
 package com.cassini.foodzone.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cassini.foodzone.dto.GetOrderRequestDto;
 import com.cassini.foodzone.dto.OrderRequestDto;
 import com.cassini.foodzone.dto.OrderResponseDto;
 import com.cassini.foodzone.entity.CustomerOrder;
@@ -39,14 +37,16 @@ public class OrderController {
 	@Autowired
 	CustomerOrderRepository customerOrderRepository;
 
-	@GetMapping
-	public ResponseEntity<List<CustomerOrder>> getOrdersByCustomerId(Integer customerId) {
-		return ResponseEntity.ok().body(customerOrderService.getOrdersByCustomerId(customerId));
+	@PostMapping("/get")
+	 public ResponseEntity<List<CustomerOrder>> getOrders(@RequestBody GetOrderRequestDto getOrderRequestDto) {
+	        return ResponseEntity.ok().body(customerOrderService.getOrders(getOrderRequestDto));
+    }
+	
+	@PostMapping
+	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
 	}
 
-	@PostMapping
-	public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
-		return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
-	}
+
 	
 }
