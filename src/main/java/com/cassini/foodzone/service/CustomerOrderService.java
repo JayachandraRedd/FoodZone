@@ -11,6 +11,6 @@ public interface CustomerOrderService {
 
 	List<CustomerOrder> getOrders(GetOrderRequestDto getOrderRequestDto);
 	
-	OrderResponseDto placeOrder(OrderRequestDto OrderRequestDto);
+	OrderResponseDto placeOrder(OrderRequestDto orderRequestDto);
 
 }

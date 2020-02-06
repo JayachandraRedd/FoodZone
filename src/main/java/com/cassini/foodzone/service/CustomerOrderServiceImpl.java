@@ -15,18 +15,24 @@ import com.cassini.foodzone.entity.CustomerOrder;
 import com.cassini.foodzone.entity.Recipe;
 import com.cassini.foodzone.entity.Vendor;
 import com.cassini.foodzone.repository.CustomerOrderRepository;
+import com.cassini.foodzone.repository.RecipeRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class CustomerOrderServiceImpl implements CustomerOrderService {
+
 	@Autowired
 	CustomerOrderRepository customerOrderRepository;
 
 	/**
 	 * This method is used to get list of orders
 	 */
+
+	@Autowired
+	RecipeRepository recipeRepository;
+
 	@Override
 	public List<CustomerOrder> getOrders(GetOrderRequestDto getOrderRequestDto) {
 		log.info("starting getOrders method , inside CustomerOrderServiceImpl");
@@ -46,12 +52,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 	 * This method is used to place orders
 	 */
 	@Override
-	public OrderResponseDto placeOrder(OrderRequestDto OrderRequestDto) {
+	public OrderResponseDto placeOrder(OrderRequestDto orderRequestDto) {
 		log.info("starting placeOrder method , inside CustomerOrderServiceImpl");
 		Customer customer = new Customer();
-		customer.setCustomerId(OrderRequestDto.getCustomerId());
-		List<Recipe> recipes = new ArrayList<Recipe>();
-		OrderRequestDto.getRecipes().forEach(recipeId -> {
+		customer.setCustomerId(orderRequestDto.getCustomerId());
+		List<Recipe> recipes = new ArrayList<>();
+		orderRequestDto.getRecipes().forEach(recipeId -> {
 			Recipe recipe = new Recipe();
 			recipe.setRecipeId(recipeId);
 			recipes.add(recipe);
@@ -61,6 +67,10 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 		customerOrder.setOrderStatus("pending");
 		customerOrder.setCustomer(customer);
 		customerOrder.setRecipes(recipes);
+		Vendor vendor = new Vendor();
+		vendor.setVendorId(
+				recipeRepository.findById(orderRequestDto.getRecipes().get(0)).get().getVendor().getVendorId());
+		customerOrder.setVendor(vendor);
 		customerOrderRepository.save(customerOrder);
 		OrderResponseDto orderResponseDto = new OrderResponseDto();
 		orderResponseDto.setOrderId(customerOrder.getOrderId());

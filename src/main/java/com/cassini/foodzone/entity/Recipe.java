@@ -20,6 +20,7 @@ public class Recipe {
 	private Integer recipeId;
 	private String recipeName;
 	private Double unitPrice;
+	private String status;
 	
 	@ManyToOne
 	private Vendor vendor;

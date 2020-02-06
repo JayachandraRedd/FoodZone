@@ -2,14 +2,23 @@ package com.cassini.foodzone.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cassini.foodzone.dto.AddRecipeRequest;
+import com.cassini.foodzone.dto.AddRecipeResponseDto;
+import com.cassini.foodzone.dto.EditRecipeResponseDto;
 import com.cassini.foodzone.entity.Recipe;
 import com.cassini.foodzone.exception.NotFoundException;
 import com.cassini.foodzone.service.RecipeService;
@@ -53,12 +62,27 @@ public class RecipeController {
 	public ResponseEntity<List<Recipe>> getRecipes(@PathVariable("vendorId") Integer vendorId) throws NotFoundException
 	{
 		log.info("Calling getRecipes() method from VendorController");
-		if(vendorId == 0 || vendorId == null)
+		if(vendorId == null)
 		{
 			throw new NotFoundException(Constant.VENDOR_NOT_FOUND);
 			
 		}
 		return ResponseEntity.ok().body(recipeService.getAllRecipes(vendorId));
+		
+	}
+	
+	@PostMapping
+	public ResponseEntity<AddRecipeResponseDto> addRecipe(@RequestBody AddRecipeRequest addRecipeRequest) {
+		
+		return ResponseEntity.ok().body(recipeService.addRecipe(addRecipeRequest));
+	}
+	
+	@PutMapping("/{recipeId}")
+	public ResponseEntity<EditRecipeResponseDto> editRecipe(@PathParam("recipeId") Integer recipeId) throws NotFoundException {
+		EditRecipeResponseDto editRecipeResponseDto = recipeService.editRecipe(recipeId);
+		editRecipeResponseDto.setMessage("changes happend");
+		editRecipeResponseDto.setStatusCode(HttpStatus.ACCEPTED.value());
+		return ResponseEntity.ok().body(editRecipeResponseDto);
 		
 	}
 
