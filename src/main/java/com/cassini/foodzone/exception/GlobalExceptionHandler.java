@@ -18,6 +18,13 @@ public class GlobalExceptionHandler {
 		errorDto.setStatusCode(HttpStatus.NOT_FOUND.value());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
 	}
+	@ExceptionHandler(RegistrationFailedExcpetion.class)
+	public ResponseEntity<ErrorDto> registartionFailException(RegistrationFailedExcpetion exception){
+		ErrorDto errorDto = new ErrorDto();
+		errorDto.setMessage(exception.getMessage());
+		errorDto.setStatusCode(HttpStatus.NOT_FOUND.value());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
+	}
 	
 	
 	

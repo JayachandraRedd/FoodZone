@@ -3,7 +3,6 @@ package com.cassini.foodzone.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,19 +36,27 @@ public class OrderController {
 	CustomerOrderService customerOrderService;
 	@Autowired
 	CustomerOrderRepository customerOrderRepository;
+	/**
+	 * 
+	 * @param getOrderRequestDto to getOrders() method , to get list of orders
+	 * @return list of orders
+	 */
 
 	@PostMapping("/get")
 	 public ResponseEntity<List<CustomerOrder>> getOrders(@RequestBody GetOrderRequestDto getOrderRequestDto) {
+		log.info("starting getOrders method , inside OrderController");
 	        return ResponseEntity.ok().body(customerOrderService.getOrders(getOrderRequestDto));
     }
-	
+	/**
+	 * 
+	 * @param orderRequestDto placeOrder() method , to place order
+	 * @return order responce
+	 */
 	
 	@PostMapping
 	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
-		OrderResponseDto orderResponseDto = customerOrderService.placeOrder(orderRequestDto);
-		orderResponseDto.setStatusCode(HttpStatus.ACCEPTED.value());
-		orderResponseDto.setMessage("order placed successfully");
-        return ResponseEntity.ok().body(orderResponseDto);
+		log.info("starting placeOrder method , inside OrderController");
+        return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
 	}
 
 

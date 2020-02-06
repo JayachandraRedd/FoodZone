@@ -14,6 +14,7 @@ import com.cassini.foodzone.dto.ResponseDto;
 import com.cassini.foodzone.dto.LoginRequestDto;
 import com.cassini.foodzone.dto.LoginResponseDto;
 import com.cassini.foodzone.exception.NotFoundException;
+import com.cassini.foodzone.exception.RegistrationFailedExcpetion;
 import com.cassini.foodzone.service.CustomerService;
 import com.cassini.foodzone.util.Constant;
 
@@ -40,10 +41,11 @@ public class CustomerController {
 	 * 
 	 * @param registrationDto is the parameter for register() method
 	 * @return ResponseDto
+	 * @throws RegistrationFailedExcpetion 
 	 */
 
 	@PostMapping("/registration")
-	public ResponseDto registration(@RequestBody RegistrationDto registrationDto) {
+	public ResponseDto registration(@RequestBody RegistrationDto registrationDto) throws RegistrationFailedExcpetion {
 		log.info("starting registration method , inside CustomerController");
 		ResponseDto responseDto =  customerService.registration(registrationDto);
 		responseDto.setStatusCode(HttpStatus.OK.value());

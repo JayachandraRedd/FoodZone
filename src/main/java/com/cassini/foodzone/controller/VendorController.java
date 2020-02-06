@@ -61,7 +61,12 @@ public class VendorController {
 		log.info("Calling getVendors() method from VendorController");
 		return ResponseEntity.ok().body(vendorService.getAllVendors());
 	}
-
+/**
+ * 
+ * @param loginRequestDto is argument to the authenticateVendor() method, this is used to check the authentication of vendors
+ * @return
+ * @throws NotFoundException
+ */
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDto> authenticateVendor(@RequestBody LoginRequestDto loginRequestDto)
@@ -78,10 +83,15 @@ public class VendorController {
 		return ResponseEntity.ok().body(vendorService.authenticateVendor(loginRequestDto));
 	}
 
+	/**
+	 * 
+	 * @param registerVendorRequestDto is argument to the registerVnedor() method, this is used to register the  vendors
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<RegisterVendorResponseDto> registerVnedor(
 			@RequestBody RegisterVendorRequestDto registerVendorRequestDto) {
-		
+		log.info("Starting registerVnedor() method ,inside VendorController");
 		RegisterVendorResponseDto registerVendorResponseDto =  vendorService.registerVendor(registerVendorRequestDto);
 		registerVendorResponseDto.setMessage("vendor registered successfully");
 		registerVendorResponseDto.setStatusCode(HttpStatus.ACCEPTED.value());

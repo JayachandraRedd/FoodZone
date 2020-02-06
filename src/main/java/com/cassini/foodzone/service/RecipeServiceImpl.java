@@ -24,9 +24,14 @@ public class RecipeServiceImpl implements RecipeService {
 	@Autowired
 	RecipeRepository recipeRepository;
 
+	/**
+	 * This method is used to get the list of Recipes
+	 */
+
 	@Override
 	public List<Recipe> getAllRecipes(Integer vendorId) {
 
+		log.info("starting getAllRecipes method , inside RecipeServiceImpl");
 		Vendor vendor = new Vendor();
 		vendor.setVendorId(vendorId);
 		return recipeRepository.findByVendor(vendor);

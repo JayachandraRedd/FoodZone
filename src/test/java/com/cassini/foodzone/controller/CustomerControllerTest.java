@@ -14,6 +14,7 @@ import com.cassini.foodzone.dto.LoginResponseDto;
 import com.cassini.foodzone.dto.RegistrationDto;
 import com.cassini.foodzone.dto.ResponseDto;
 import com.cassini.foodzone.exception.NotFoundException;
+import com.cassini.foodzone.exception.RegistrationFailedExcpetion;
 import com.cassini.foodzone.service.CustomerService;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -26,7 +27,7 @@ public class CustomerControllerTest {
 	CustomerService customerService;
 
 	@Test
-	public void testRegistration() {
+	public void testRegistration() throws RegistrationFailedExcpetion {
 		RegistrationDto registrationDto = new RegistrationDto();
 		Mockito.when(customerService.registration(Mockito.any())).thenReturn(new ResponseDto());
 		Integer actual = customerController.registration(registrationDto).getStatusCode();

@@ -8,15 +8,22 @@ import org.springframework.stereotype.Service;
 import com.cassini.foodzone.entity.Payment;
 import com.cassini.foodzone.repository.PaymentRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
-public class PaymentServiceImpl implements PaymentService{
-	
+@Slf4j
+public class PaymentServiceImpl implements PaymentService {
+
 	@Autowired
 	PaymentRepository paymentRepository;
 
+	/**
+	 * This method is used to get list of paymodes.
+	 */
 	@Override
 	public List<Payment> getPaymentMode() {
-		
+		log.info("starting getPaymentMode method , inside PaymentServiceImpl");
+
 		return paymentRepository.findAll();
 	}
 
