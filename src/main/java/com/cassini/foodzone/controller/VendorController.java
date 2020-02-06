@@ -91,7 +91,7 @@ public class VendorController {
 	@PostMapping
 	public ResponseEntity<RegisterVendorResponseDto> registerVnedor(
 			@RequestBody RegisterVendorRequestDto registerVendorRequestDto) {
-		
+		log.info("Starting registerVnedor() method ,inside VendorController");
 		RegisterVendorResponseDto registerVendorResponseDto =  vendorService.registerVendor(registerVendorRequestDto);
 		registerVendorResponseDto.setMessage("vendor registered successfully");
 		registerVendorResponseDto.setStatusCode(HttpStatus.ACCEPTED.value());
