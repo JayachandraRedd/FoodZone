@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cassini.foodzone.entity.Payment;
+import com.cassini.foodzone.service.PaymentRegistery;
+import com.cassini.foodzone.service.PaymentRegisteryService;
 import com.cassini.foodzone.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,9 @@ public class PaymentController {
 
 	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	PaymentRegistery paymentRegistery;
 
 	@GetMapping
 	public ResponseEntity<List<Payment>> getAllPaymentMode() {
@@ -31,8 +36,11 @@ public class PaymentController {
 		return ResponseEntity.ok().body(paymentService.getPaymentMode());
 	}
 
-	@PostMapping
+	@GetMapping("/pay")
 	public ResponseEntity<String> makePayment(@RequestParam String paymentMode) {
+//		
+//		String payment = paymentRegistery.getServiceBean(paymentMode)
+//				.payment(paymentMode);
 		
 		return ResponseEntity.ok().body("payment done through" + paymentMode);
 	}

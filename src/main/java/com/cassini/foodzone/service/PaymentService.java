@@ -7,5 +7,6 @@ import com.cassini.foodzone.entity.Payment;
 public interface PaymentService{
 	
 	public  List<Payment> getPaymentMode();
+	
 
 }
