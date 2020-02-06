@@ -1,6 +1,7 @@
 package com.cassini.foodzone.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,8 +45,9 @@ public class CustomerController {
 	@PostMapping("/registration")
 	public ResponseDto registration(@RequestBody RegistrationDto registrationDto) {
 		log.info("starting registration method , inside CustomerController");
-
-		return customerService.registration(registrationDto);
+		ResponseDto responseDto =  customerService.registration(registrationDto);
+		responseDto.setStatusCode(HttpStatus.OK.value());
+		return responseDto;
 
 	}
 
