@@ -41,7 +41,6 @@ public class CustomerServiceImplTest {
 
 		ResponseDto userregistration = customerServiceImpl.registration(registrationDto);
 		assertNotNull(userregistration);
-		assertEquals(userregistration.getMessage(), "Customer Registration successfull !!");
 
 	}
 

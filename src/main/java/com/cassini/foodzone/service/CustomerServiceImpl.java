@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		if (registrationDto.getCustomerName() == null || registrationDto.getEmail() == null
 				|| registrationDto.getPassword() == null || registrationDto.getPhoneNumber() == null) {
-			throw new RegistrationFailedExcpetion(Constant.CUSTOMER_REGISTRATION_FAIL_Exception);
+			throw new RegistrationFailedExcpetion(Constant.CUSTOMER_REGISTRATION_FAIL_EXCEPTION);
 		}
 		Customer customer = new Customer();
 

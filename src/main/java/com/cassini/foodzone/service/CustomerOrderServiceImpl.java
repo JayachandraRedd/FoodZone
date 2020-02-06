@@ -3,6 +3,7 @@ package com.cassini.foodzone.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.cassini.foodzone.entity.Customer;
 import com.cassini.foodzone.entity.CustomerOrder;
 import com.cassini.foodzone.entity.Recipe;
 import com.cassini.foodzone.entity.Vendor;
+import com.cassini.foodzone.exception.NotFoundException;
 import com.cassini.foodzone.repository.CustomerOrderRepository;
 import com.cassini.foodzone.repository.RecipeRepository;
 
@@ -44,7 +46,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 	}
 
 	@Override
-	public OrderResponseDto placeOrder(OrderRequestDto orderRequestDto) {
+	public OrderResponseDto placeOrder(OrderRequestDto orderRequestDto) throws NotFoundException {
 		Customer customer = new Customer();
 		customer.setCustomerId(orderRequestDto.getCustomerId());
 		List<Recipe> recipes = new ArrayList<>();
@@ -59,13 +61,19 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 		customerOrder.setCustomer(customer);
 		customerOrder.setRecipes(recipes);
 		Vendor vendor = new Vendor();
-		vendor.setVendorId(
-				recipeRepository.findById(orderRequestDto.getRecipes().get(0)).get().getVendor().getVendorId());
-		customerOrder.setVendor(vendor);
-		customerOrderRepository.save(customerOrder);
-		OrderResponseDto orderResponseDto = new OrderResponseDto();
-		orderResponseDto.setOrderId(customerOrder.getOrderId());
-		return orderResponseDto;
+		Optional<Recipe> recipe = recipeRepository.findById(orderRequestDto.getRecipes().get(0));
+		if (!recipe.isPresent()) {
+			log.error("CustomerOrderServiceImpl placeOrder ---> NotFoundException occured");
+			throw new NotFoundException("recipe not found");
+		}else {
+			vendor.setVendorId(recipe.get().getVendor().getVendorId());
+			customerOrder.setVendor(vendor);
+			customerOrderRepository.save(customerOrder);
+			OrderResponseDto orderResponseDto = new OrderResponseDto();
+			orderResponseDto.setOrderId(customerOrder.getOrderId());
+			return orderResponseDto;
+		}
+		
 	}
 
 }

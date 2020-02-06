@@ -8,6 +8,6 @@ import lombok.Setter;
 public class EditRecipeRequestDto {
 	
 	private Integer vendorId;
-	private Integer RecipeId;
+	private Integer recipeId;
 
 }

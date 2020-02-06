@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.cassini.foodzone.dto.GetOrderRequestDto;
 import com.cassini.foodzone.dto.OrderRequestDto;
 import com.cassini.foodzone.dto.OrderResponseDto;
+import com.cassini.foodzone.exception.NotFoundException;
 import com.cassini.foodzone.service.CustomerOrderService;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -34,7 +35,7 @@ public class OrderControllerTest {
 	}
 	
 	@Test
-	public void testPlaceOrderSuccess() {
+	public void testPlaceOrderSuccess() throws NotFoundException {
 		Mockito.when(customerOrderService.placeOrder(Mockito.any())).thenReturn(new OrderResponseDto());
 		Integer actual = orderController.placeOrder(new OrderRequestDto()).getStatusCodeValue();
 		Integer expected = 200;

@@ -14,6 +14,7 @@ import com.cassini.foodzone.dto.GetOrderRequestDto;
 import com.cassini.foodzone.dto.OrderRequestDto;
 import com.cassini.foodzone.dto.OrderResponseDto;
 import com.cassini.foodzone.entity.CustomerOrder;
+import com.cassini.foodzone.exception.NotFoundException;
 import com.cassini.foodzone.repository.CustomerOrderRepository;
 import com.cassini.foodzone.service.CustomerOrderService;
 
@@ -51,10 +52,11 @@ public class OrderController {
 	 * 
 	 * @param orderRequestDto placeOrder() method , to place order
 	 * @return order responce
+	 * @throws NotFoundException 
 	 */
 	
 	@PostMapping
-	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
+	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) throws NotFoundException {
 		log.info("starting placeOrder method , inside OrderController");
         return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
 	}
