@@ -13,6 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cassini.foodzone.entity.Payment;
 import com.cassini.foodzone.service.PaymentService;
+/**
+ * The LocationController program implements an application flightbooking
+ * 
+ * @author Amala
+ * @version 1.0
+ * @since 2020-02-04
+ *
+ */
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +35,14 @@ public class PaymentController {
 
 	@GetMapping
 	public ResponseEntity<List<Payment>> getAllPaymentMode() {
+		log.info("starting getAllPaymentMode method , inside PaymentController");
 
 		return ResponseEntity.ok().body(paymentService.getPaymentMode());
 	}
 
 	@PostMapping
 	public ResponseEntity<String> makePayment(@RequestParam String paymentMode) {
+		log.info("starting makePayment method , inside PaymentController");
 		
 		return ResponseEntity.ok().body("payment done through" + paymentMode);
 	}

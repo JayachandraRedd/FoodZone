@@ -8,7 +8,7 @@ public class Constant {
 
 	public static final String CUSTOMER_REGISTRATION_SUCCESSFULL = "Customer Registration successfull !!";
 
-	public static final String CUSTOMER_REGISTRATION_FAIL = "Customer Registration fail";
+	public static final String CUSTOMER_REGISTRATION_FAIL_Exception = "please provide the all required details";
 
 	public static final String CUSTOMER_NOT_FOUND = "customer not found";
 

@@ -36,14 +36,26 @@ public class OrderController {
 	CustomerOrderService customerOrderService;
 	@Autowired
 	CustomerOrderRepository customerOrderRepository;
+	/**
+	 * 
+	 * @param getOrderRequestDto to getOrders() method , to get list of orders
+	 * @return list of orders
+	 */
 
 	@PostMapping("/get")
 	 public ResponseEntity<List<CustomerOrder>> getOrders(@RequestBody GetOrderRequestDto getOrderRequestDto) {
+		log.info("starting getOrders method , inside OrderController");
 	        return ResponseEntity.ok().body(customerOrderService.getOrders(getOrderRequestDto));
     }
+	/**
+	 * 
+	 * @param orderRequestDto placeOrder() method , to place order
+	 * @return order responce
+	 */
 	
 	@PostMapping
 	 public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody OrderRequestDto orderRequestDto) {
+		log.info("starting placeOrder method , inside OrderController");
         return ResponseEntity.ok().body(customerOrderService.placeOrder(orderRequestDto));
 	}
 

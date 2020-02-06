@@ -1,6 +1,5 @@
 package com.cassini.foodzone.service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,34 +22,42 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class VendorServiceImpl implements VendorService {
-	
+
 	@Autowired
 	VendorRepository vendorRepository;
-	
-	@Override
 
+	/**
+	 * This menthod is used to get the list of vendors
+	 */
+	@Override
 	public List<Vendor> getAllVendors() {
-		
-	log.info("Fetching All Vendors records from VendorRepository");
-	return vendorRepository.findAll();
+
+		log.info("Fetching All Vendors records from VendorRepository");
+		return vendorRepository.findAll();
 	}
 
+	/**
+	 * This method is used to check the authentication
+	 */
 	public LoginResponseDto authenticateVendor(LoginRequestDto loginRequestDto) throws NotFoundException {
 		log.info("VendorServiceImpl authenticateVendor ---> autheticating vendor");
-	Optional<Vendor> vendor = vendorRepository.findByEmailAndPassword(loginRequestDto.getEmail(),
-			loginRequestDto.getPassword());
-	if (vendor.isPresent()) {
-		LoginResponseDto loginResponseDto = new LoginResponseDto();
-		BeanUtils.copyProperties(vendor.get(), loginResponseDto);
-		loginResponseDto.setId(vendor.get().getVendorId());
-		log.info("VendorServiceImpl authenticateVendor ---> vendor logged in");
-		return loginResponseDto;
-	} else {
-		log.error("VendorServiceImpl authenticateVendor ---> NotFoundException occured ");
-		throw new NotFoundException(Constant.VENDOR_NOT_FOUND);
-	}
+		Optional<Vendor> vendor = vendorRepository.findByEmailAndPassword(loginRequestDto.getEmail(),
+				loginRequestDto.getPassword());
+		if (vendor.isPresent()) {
+			LoginResponseDto loginResponseDto = new LoginResponseDto();
+			BeanUtils.copyProperties(vendor.get(), loginResponseDto);
+			loginResponseDto.setId(vendor.get().getVendorId());
+			log.info("VendorServiceImpl authenticateVendor ---> vendor logged in");
+			return loginResponseDto;
+		} else {
+			log.error("VendorServiceImpl authenticateVendor ---> NotFoundException occured ");
+			throw new NotFoundException(Constant.VENDOR_NOT_FOUND);
+		}
 	}
 
+	/**
+	 * this method is used to register the vendor
+	 */
 	@Override
 	public RegisterVendorResponseDto registerVendor(RegisterVendorRequestDto registerVendorRequestDto) {
 		Vendor vendor = new Vendor();

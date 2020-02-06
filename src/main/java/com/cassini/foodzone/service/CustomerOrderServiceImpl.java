@@ -24,8 +24,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 	@Autowired
 	CustomerOrderRepository customerOrderRepository;
 
+	/**
+	 * This method is used to get list of orders
+	 */
 	@Override
 	public List<CustomerOrder> getOrders(GetOrderRequestDto getOrderRequestDto) {
+		log.info("starting getOrders method , inside CustomerOrderServiceImpl");
 		Customer customer = new Customer();
 		if (getOrderRequestDto.getCustomerId() != null) {
 			customer.setCustomerId(getOrderRequestDto.getCustomerId());
@@ -38,8 +42,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
 	}
 
+	/**
+	 * This method is used to place orders
+	 */
 	@Override
 	public OrderResponseDto placeOrder(OrderRequestDto OrderRequestDto) {
+		log.info("starting placeOrder method , inside CustomerOrderServiceImpl");
 		Customer customer = new Customer();
 		customer.setCustomerId(OrderRequestDto.getCustomerId());
 		List<Recipe> recipes = new ArrayList<Recipe>();
